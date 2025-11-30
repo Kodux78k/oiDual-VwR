@@ -1,6 +1,6 @@
 // sw.js · Service Worker basicão
 
-const CACHE_NAME = 'hub1-reel-v1';
+const CACHE_NAME = 'oidual-VWR-v2';
 const ASSETS = [
   '/',
   '/index.html',
