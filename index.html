@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<!-- MOBILE-FIRST VERTICAL HARD-LOCK -->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dual.Infodose · Card Origem · Apps</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <style>
+    :root{
+      /* Nebula Pro + Base Madeira + Rosa no lugar do laranja */
+      --bg: radial-gradient(circle at top, #211d40 0%, #090f20 45%, #03040b 100%);
+      --card-bg: rgba(11, 15, 30, 0.96);
+      --card-soft: rgba(7, 10, 22, 0.96);
+      --card-border: rgba(189, 207, 255, 0.3);
+
+      --text-main: #f4f6ff;
+      --text-soft: #b7bbd3;
+      --text-muted: #8589a3;
+
+      --accent: #7ac6ff;
+      --accent-soft: rgba(122, 198, 255, 0.12);
+      --accent-pink: #ff7ad9;
+      --accent-pink-soft: rgba(255, 122, 217, 0.18);
+
+      --madeira: #32e38a;
+
+      --radius-xl: 26px;
+      --radius-md: 18px;
+      --radius-pill: 999px;
+
+      --shadow-strong: 0 26px 68px rgba(0,0,0,0.98);
+      --shadow-soft: 0 14px 34px rgba(0,0,0,0.9);
+
+      --safe-bottom: env(safe-area-inset-bottom, 0);
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box;}
+
+    body{
+      min-height:100vh;
+      background:var(--bg);
+      color:var(--text-main);
+      font-family:-apple-system, system-ui, BlinkMacSystemFont, "SF Pro Text", Inter, sans-serif;
+      padding:22px 14px calc(18px + var(--safe-bottom));
+    }
+
+    .app{
+      max-width:430px;
+      margin:0 auto;
+    }
+
+    /* HEADER */
+
+    .app-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:18px;
+    }
+    .brand-pill{
+      font-size:12px;
+      padding:6px 11px;
+      border-radius:var(--radius-pill);
+      background:rgba(5,9,20,0.94);
+      border:1px solid rgba(142, 164, 255, 0.5);
+      color:var(--text-soft);
+      letter-spacing:0.13em;
+      text-transform:uppercase;
+    }
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .console-toggle{
+      border:none;
+      outline:none;
+      width:32px;
+      height:32px;
+      border-radius:var(--radius-pill);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(255,255,255,0.5), transparent 55%),
+        radial-gradient(circle at 80% 120%, rgba(255,122,217,0.4), transparent 55%),
+        rgba(7,15,32,0.96);
+      color:var(--text-main);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:16px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.9);
+      border:1px solid rgba(212, 184, 255, 0.7);
+      cursor:pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background .22s ease, border-color .22s ease;
+    }
+    .console-toggle:hover{
+      transform:translateY(-1px);
+      box-shadow:0 20px 44px rgba(0,0,0,0.98);
+      border-color:rgba(255,255,255,0.9);
+    }
+    .mode-pill{
+      border:none;
+      outline:none;
+      padding:7px 12px;
+      border-radius:var(--radius-pill);
+      background:rgba(5,9,20,0.94);
+      border:1px solid rgba(101, 132, 230, 0.65);
+      color:var(--text-soft);
+      font-size:11px;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .mode-pill .dot{
+      width:8px;height:8px;border-radius:var(--radius-pill);
+      background:var(--madeira);
+      box-shadow:0 0 12px rgba(50,227,138,0.9);
+    }
+
+    /* CARD ORIGEM */
+
+    .card-origem{
+      background:var(--card-bg);
+      border-radius:var(--radius-xl);
+      border:1px solid var(--card-border);
+      box-shadow:var(--shadow-strong);
+      padding:18px 14px 16px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* Orb */
+
+    .orb-wrap{
+      width:92px;height:92px;
+      border-radius:50%;
+      margin:0 auto 18px;
+      background:radial-gradient(circle at 30% 0%, #303864, #070a14);
+      border:1px solid rgba(190,210,255,0.6);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      box-shadow:0 0 34px rgba(122,198,255,0.55);
+      animation:float 4.4s ease-in-out infinite;
+    }
+    .orb-core{
+      width:76px;height:76px;
+      border-radius:50%;
+      background:conic-gradient(from 0deg, #6ab8ff, #3ce38a, #ffcf7a, #ff7ad9, #6ab8ff);
+      filter:blur(5px);
+      opacity:.96;
+      animation:spin 6s linear infinite;
+    }
+    .orb-ring{
+      position:absolute;
+      inset:12px;
+      border-radius:50%;
+      border:1px dashed rgba(255,255,255,0.45);
+      opacity:.75;
+      animation:spin 11s linear infinite reverse;
+    }
+
+    @keyframes spin{
+      from{ transform:rotate(0deg); }
+      to{ transform:rotate(360deg); }
+    }
+    @keyframes float{
+      0%,100{ transform:translateY(0); }
+      50%{ transform:translateY(-6px); }
+    }
+
+    /* Horário + frase dinâmica */
+
+    .time-main{
+      font-size:38px;
+      font-weight:600;
+      text-align:center;
+      margin-bottom:4px;
+    }
+    .time-sub{
+      text-align:center;
+      font-size:13px;
+      color:var(--text-soft);
+      margin-bottom:16px;
+      min-height:18px;
+    }
+
+    /* Intenção */
+
+    .input-row{
+      margin-bottom:14px;
+    }
+    .input-row label{
+      font-size:12px;
+      color:var(--text-soft);
+      opacity:.85;
+    }
+    .input-row input{
+      width:100%;
+      border-radius:14px;
+      padding:10px 13px;
+      margin-top:4px;
+      border:1px solid rgba(181, 200, 255, 0.6);
+      background:var(--card-soft);
+      color:var(--text-main);
+      font-size:14px;
+      outline:none;
+    }
+    .input-row input::placeholder{
+      color:var(--text-muted);
+    }
+
+    /* Botões principais */
+
+    .btn-row{
+      display:flex;
+      gap:8px;
+      margin-top:4px;
+    }
+    .btn{
+      flex:1;
+      border-radius:16px;
+      border:1px solid rgba(200, 170, 255, 0.8);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255,255,255,0.25), transparent 60%),
+        linear-gradient(135deg, #211c40, #322c66);
+      color:var(--text-main);
+      font-size:13px;
+      padding:11px 0;
+      text-align:center;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      box-shadow:var(--shadow-soft);
+      transition:transform .18s ease, box-shadow .18s ease, background .22s ease, border-color .22s ease;
+    }
+    .btn span.emoji{
+      font-size:14px;
+    }
+    .btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 20px 44px rgba(0,0,0,0.98);
+      border-color:rgba(255,255,255,0.95);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(255,122,217,0.32), transparent 60%),
+        linear-gradient(135deg, #2b2658, #423476);
+    }
+    .btn:active{
+      transform:translateY(1px) scale(.97);
+      box-shadow:0 9px 24px rgba(0,0,0,0.9);
+    }
+
+    /* APPS / STACKS LISTADOS (meu Play Store) */
+
+    .apps-wrapper{
+      margin-top:18px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .apps-header-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:6px;
+    }
+    .apps-title{
+      font-size:12px;
+      letter-spacing:0.16em;
+      text-transform:uppercase;
+      color:var(--text-soft);
+    }
+    .apps-count{
+      font-size:11px;
+      color:var(--text-muted);
+    }
+
+    .app-card{
+      border-radius:var(--radius-md);
+      border:1px solid rgba(194, 176, 255, 0.8);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255,122,217,0.28), transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(122,198,255,0.22), transparent 60%),
+        rgba(9, 12, 28, 0.98);
+      padding:10px 11px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:8px;
+      font-size:13px;
+      box-shadow:0 18px 40px rgba(0,0,0,0.95);
+    }
+    .app-main{
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+      flex:1;
+      min-width:0;
+    }
+    .app-title{
+      font-weight:500;
+      color:var(--text-main);
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .app-meta{
+      font-size:11px;
+      color:var(--text-soft);
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .app-group{
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      padding:3px 7px;
+      border-radius:var(--radius-pill);
+      background:var(--accent-pink-soft);
+      color:#ffe5f7;
+      border:1px solid rgba(255,122,217,0.9);
+      font-size:10px;
+      max-width:100%;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .app-url{
+      font-size:10px;
+      color:var(--text-muted);
+      max-width:100%;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .app-actions{
+      display:flex;
+      flex-direction:column;
+      gap:5px;
+    }
+    .app-btn{
+      border:none;
+      outline:none;
+      width:28px;height:28px;
+      border-radius:var(--radius-pill);
+      background:rgba(5,8,22,0.9);
+      color:#ffe9ff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      cursor:pointer;
+      border:1px solid rgba(220, 188, 255, 0.85);
+      transition:background .18s ease, transform .16s ease, box-shadow .18s ease;
+      box-shadow:0 9px 24px rgba(0,0,0,0.9);
+    }
+    .app-btn.open{
+      background:linear-gradient(135deg, #2b2750, #50306e);
+    }
+    .app-btn.remove{
+      background:rgba(40, 12, 36, 0.95);
+      border-color:rgba(255,122,217,0.9);
+    }
+    .app-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 16px 36px rgba(0,0,0,0.95);
+    }
+    .app-btn:active{
+      transform:translateY(1px) scale(.96);
+      box-shadow:0 7px 20px rgba(0,0,0,0.9);
+    }
+
+    /* DECK DE IFRAMES (apps abertos em cards) */
+
+    .iframe-deck{
+      margin-top:18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .iframe-card{
+      border-radius:22px;
+      border:1px solid rgba(192, 178, 255, 0.85);
+      background:rgba(6,8,22,0.98);
+      box-shadow:0 26px 60px rgba(0,0,0,0.98);
+      overflow:hidden;
+    }
+    .iframe-card-header{
+      padding:8px 11px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      background:linear-gradient(135deg, #241f4a, #39265c);
+      color:var(--text-main);
+      font-size:12px;
+    }
+    .iframe-card-title{
+      flex:1;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .iframe-card-group{
+      font-size:10px;
+      padding:3px 7px;
+      border-radius:var(--radius-pill);
+      background:var(--accent-pink-soft);
+      border:1px solid rgba(255,122,217,0.8);
+      color:#ffe8ff;
+    }
+    .iframe-card-actions{
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .iframe-card-actions button{
+      border:none;
+      outline:none;
+      width:26px;height:26px;
+      border-radius:var(--radius-pill);
+      background:rgba(3,5,16,0.96);
+      color:var(--text-main);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      font-size:13px;
+      border:1px solid rgba(180, 178, 255, 0.8);
+    }
+    .iframe-card iframe{
+      width:100%;
+      border:none;
+      display:block;
+      height:660px;
+      background:#02030a;
+    }
+
+    /* Log interno escondido (origem do espelho) */
+    #logBox{ display:none; }
+
+    /* Painel Console (slide-up) */
+
+    .console-panel{
+      position:fixed;
+      inset:auto 0 0 0;
+      z-index:60;
+      padding:0 10px 10px;
+      pointer-events:none;
+    }
+    .console-panel.open{
+      pointer-events:auto;
+    }
+    .console-panel-inner{
+      max-width:430px;
+      margin:0 auto;
+      background:radial-gradient(circle at top, #211a44 0%, #050716 55%, #02030a 100%);
+      border-radius:22px 22px 0 0;
+      border:1px solid rgba(184, 168, 255, 0.8);
+      box-shadow:0 -24px 60px rgba(0,0,0,0.98);
+      padding:10px 11px 12px;
+      transform:translateY(110%);
+      opacity:0;
+      transition:transform .28s cubic-bezier(.21,.9,.32,1), opacity .24s ease-out;
+      backdrop-filter:blur(22px);
+    }
+    .console-panel.open .console-panel-inner{
+      transform:translateY(0);
+      opacity:1;
+    }
+    .console-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:6px;
+    }
+    .console-title{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:0.12em;
+      color:var(--text-soft);
+    }
+    .console-close{
+      border:none;
+      outline:none;
+      width:26px;height:26px;
+      border-radius:var(--radius-pill);
+      background:transparent;
+      color:var(--text-muted);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      transition:background .18s ease,color .18s ease, transform .16s ease;
+    }
+    .console-close:hover{
+      background:rgba(255,255,255,0.06);
+      color:var(--accent-pink);
+      transform:translateY(-1px);
+    }
+    .console-body{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .console-section{
+      border-radius:14px;
+      background:rgba(7, 9, 22, 0.96);
+      border:1px solid rgba(138, 146, 244, 0.6);
+      padding:7px 8px;
+    }
+    .console-section h3{
+      margin:0 0 3px;
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:0.13em;
+      color:var(--text-soft);
+    }
+    .console-section p,
+    .console-section small{
+      margin:0;
+      font-size:10px;
+      color:var(--text-muted);
+    }
+    .console-actions-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:5px;
+      margin-top:4px;
+    }
+    .console-btn{
+      border:none;
+      border-radius:var(--radius-pill);
+      padding:5px 9px;
+      font-size:10px;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      background:linear-gradient(135deg,#25254a,#3b3a78);
+      color:var(--text-main);
+      box-shadow:0 10px 26px rgba(0,0,0,0.9);
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      transition:transform .18s ease, box-shadow .18s ease, background .22s ease;
+    }
+    .console-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 18px 40px rgba(0,0,0,0.98);
+      background:linear-gradient(135deg,#333264,#484490);
+    }
+    .console-btn:active{
+      transform:translateY(1px) scale(.97);
+      box-shadow:0 8px 20px rgba(0,0,0,0.9);
+    }
+    .console-ls-dump{
+      margin-top:4px;
+      max-height:80px;
+      overflow:auto;
+      padding:4px 6px;
+      font-family:"SF Mono","JetBrains Mono",ui-monospace,monospace;
+      font-size:10px;
+      line-height:1.35;
+      background:rgba(3, 5, 16, 0.96);
+      border-radius:8px;
+      border:1px solid rgba(116, 130, 228, 0.7);
+      color:var(--text-soft);
+      white-space:pre-wrap;
+    }
+    .console-log-mirror{
+      margin-top:4px;
+      max-height:64px;
+      overflow:auto;
+      font-size:10px;
+      line-height:1.3;
+      color:var(--text-soft);
+      opacity:.88;
+    }
+    .console-log-mirror div{
+      padding:1px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+
+    <header class="app-header">
+      <div class="brand-pill">Dual · Infodose</div>
+      <div class="header-actions">
+        <button class="console-toggle" id="consoleToggle" title="Abrir Console">◎</button>
+        <button class="mode-pill" type="button">
+          <span class="dot"></span>
+          <span>Modo 3·6·9</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- CARD ÚNICO (origem) -->
+    <section class="card-origem" id="cardOrigem">
+      <div class="orb-wrap">
+        <div class="orb-core"></div>
+        <div class="orb-ring"></div>
+      </div>
+
+      <div id="timeNow" class="time-main">--:--</div>
+      <div id="timeSub" class="time-sub"></div>
+
+      <div class="input-row">
+        <label for="intentInput">Intenção / nome / vibração</label>
+        <input id="intentInput" placeholder="Escreve o que você quer ativar hoje..." />
+      </div>
+
+      <div class="btn-row">
+        <button class="btn" id="btnDocs" type="button">
+          <span class="emoji">📂</span>
+          <span>Docs & Apps</span>
+        </button>
+        <button class="btn" id="btnAddApp" type="button">
+          <span class="emoji">＋</span>
+          <span>Novo app / stack</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Lista de Apps / Stacks (Play Store local) -->
+    <section class="apps-wrapper">
+      <div class="apps-header-row">
+        <div class="apps-title">Meus apps / stacks</div>
+        <div class="apps-count" id="appsCount">0 apps</div>
+      </div>
+      <div id="appsList"></div>
+    </section>
+
+    <!-- Deck de iframes (apps abertos) -->
+    <section class="iframe-deck" id="iframeDeck"></section>
+
+    <!-- Log interno escondido (origem pro espelho do console) -->
+    <div id="logBox"></div>
+  </div>
+
+  <!-- Painel Console -->
+  <div class="console-panel" id="consolePanel" aria-hidden="true">
+    <div class="console-panel-inner">
+      <div class="console-header">
+        <div class="console-title">Console · Card Único + Apps</div>
+        <button class="console-close" id="consoleClose" type="button">✕</button>
+      </div>
+
+      <div class="console-body">
+        <div class="console-section">
+          <h3>Visibilidade & grupos</h3>
+          <small>Esconde o card de origem e abre grupos de apps pelo nome.</small>
+          <div class="console-actions-row">
+            <button class="console-btn" id="toggleOrigemBtn" type="button">Ocultar/Mostrar card</button>
+            <button class="console-btn" id="openGroupBtn" type="button">Abrir grupo</button>
+          </div>
+        </div>
+
+        <div class="console-section">
+          <h3>Local Storage</h3>
+          <small>Intenção + lista de apps ficam em <code>dual_origin_*</code>.</small>
+          <div class="console-actions-row">
+            <button class="console-btn" data-ls-action="dump" type="button">Ver chaves</button>
+            <button class="console-btn" data-ls-action="clear-intent" type="button">Limpar intenção</button>
+            <button class="console-btn" data-ls-action="clear-apps" type="button">Limpar apps</button>
+          </div>
+          <pre class="console-ls-dump" id="consoleLsDump"></pre>
+        </div>
+
+        <div class="console-section">
+          <h3>Log místico</h3>
+          <small>Últimos eventos: intenção, apps criados, grupos abertos.</small>
+          <div class="console-log-mirror" id="consoleLogMirror"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const timeEl   = document.getElementById('timeNow');
+      const timeSub  = document.getElementById('timeSub');
+      const intentEl = document.getElementById('intentInput');
+
+      const INTENT_KEY = 'dual_origin_intent';
+      const APPS_KEY   = 'dual_origin_apps_v2';
+
+      /* Horário + frases dinâmicas */
+      const phrases = {
+        morning: [
+          'Bom dia · hoje é um bom dia pra testar um app novo.',
+          'Amanheceu · organiza o mínimo e o resto a gente improvisa.',
+          'Pulso da manhã · uma intenção sincera já muda o dia inteiro.'
+        ],
+        afternoon: [
+          'Boa tarde · esse card é sua mesa limpa de trabalho.',
+          'Metade do dia · abrir um app certo vale mais que abrir dez.',
+          'Tarde viva · testa um stack de cada vez e sente o efeito.'
+        ],
+        night: [
+          'Boa noite · esse card é seu modo noturno de cuidado.',
+          'Noite acesa · fecha o que pesa, guarda só o que brilha.',
+          'Pulso noturno · um app certo antes de dormir já é ritual.'
+        ]
+      };
+
+      function setDynamicPhrase(){
+        const now = new Date();
+        const h   = now.getHours();
+        let bucket = 'night';
+        if(h >= 5 && h < 12) bucket = 'morning';
+        else if(h >= 12 && h < 18) bucket = 'afternoon';
+        const set = phrases[bucket] || phrases.night;
+        const pick = set[Math.floor(Math.random() * set.length)];
+        timeSub.textContent = pick;
+      }
+
+      function tick(){
+        const now = new Date();
+        timeEl.textContent = now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+      }
+      tick();
+      setDynamicPhrase();
+      setInterval(tick, 60000);
+
+      function log(msg){
+        const box = document.getElementById('logBox');
+        if(!box) return;
+        const line = document.createElement('div');
+        line.textContent = new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'}) + ' · ' + msg;
+        box.prepend(line);
+        while(box.childElementCount > 20){
+          box.removeChild(box.lastElementChild);
+        }
+      }
+
+      /* Intenção */
+
+      try{
+        const saved = localStorage.getItem(INTENT_KEY);
+        if(saved) intentEl.value = saved;
+      }catch(e){}
+
+      intentEl.addEventListener('input', e=>{
+        try{
+          localStorage.setItem(INTENT_KEY, e.target.value);
+        }catch(e){}
+        log('Intenção atualizada.');
+      });
+
+      /* Apps / Stacks */
+
+      const appsList   = document.getElementById('appsList');
+      const appsCount  = document.getElementById('appsCount');
+      const iframeDeck = document.getElementById('iframeDeck');
+
+      let apps = [];
+      try{
+        const raw = localStorage.getItem(APPS_KEY);
+        if(raw) apps = JSON.parse(raw) || [];
+      }catch(e){ apps = []; }
+
+      function saveApps(){
+        try{
+          localStorage.setItem(APPS_KEY, JSON.stringify(apps));
+        }catch(e){}
+        renderApps();
+      }
+
+      function renderApps(){
+        appsList.innerHTML = '';
+        appsCount.textContent = apps.length + (apps.length === 1 ? ' app' : ' apps');
+
+        apps.forEach(app=>{
+          const card = document.createElement('div');
+          card.className = 'app-card';
+          card.dataset.id = app.id;
+
+          card.innerHTML = `
+            <div class="app-main">
+              <div class="app-title">${app.name || 'Sem nome'}</div>
+              <div class="app-meta">
+                <span class="app-group">${app.group || 'Sem grupo'}</span>
+                <span class="app-url">${app.url || ''}</span>
+              </div>
+            </div>
+            <div class="app-actions">
+              <button class="app-btn open"  data-action="open"   title="Abrir em card" type="button">▣</button>
+              <button class="app-btn remove" data-action="remove" title="Remover" type="button">✕</button>
+            </div>
+          `;
+
+          card.querySelectorAll('.app-btn').forEach(btn=>{
+            btn.addEventListener('click', ()=>{
+              const action = btn.dataset.action;
+              if(action === 'open'){
+                openAppCard(app);
+              }else if(action === 'remove'){
+                removeApp(app.id);
+              }
+            });
+          });
+
+          appsList.appendChild(card);
+        });
+      }
+
+      function removeApp(id){
+        const idx = apps.findIndex(a => a.id === id);
+        if(idx === -1) return;
+        if(!confirm('Remover este app da sua lista?')) return;
+        apps.splice(idx,1);
+        log('App removido.');
+        saveApps();
+      }
+
+      function openAppCard(app){
+        if(!app.url){
+          alert('Este app ainda não tem URL definida.');
+          return;
+        }
+        const card = document.createElement('section');
+        card.className = 'iframe-card';
+        card.dataset.id = app.id;
+
+        card.innerHTML = `
+          <div class="iframe-card-header">
+            <div class="iframe-card-title">${app.name || 'App sem nome'}</div>
+            <div class="iframe-card-actions">
+              <span class="iframe-card-group">${app.group || 'Sem grupo'}</span>
+              <button type="button" data-action="open-new" title="Abrir em nova aba">⧉</button>
+              <button type="button" data-action="close" title="Fechar card">✕</button>
+            </div>
+          </div>
+          <iframe src="${app.url}" loading="lazy"></iframe>
+        `;
+
+        card.querySelectorAll('.iframe-card-actions button').forEach(btn=>{
+          const act = btn.dataset.action;
+          btn.addEventListener('click', ()=>{
+            if(act === 'close'){
+              iframeDeck.removeChild(card);
+              log('Card de app fechado.');
+            }else if(act === 'open-new'){
+              window.open(app.url, '_blank');
+              log('App aberto em nova aba.');
+            }
+          });
+        });
+
+        iframeDeck.appendChild(card);
+        log('App aberto em card: ' + (app.name || 'sem nome'));
+      }
+
+      // Criar novo app
+      document.getElementById('btnAddApp').addEventListener('click', ()=>{
+        const name = prompt('Nome do app / stack:');
+        if(!name) return;
+        const url  = prompt('URL do app (pode ser http://, https:// ou arquivo local):','https://');
+        if(url === null) return;
+        const group = prompt('Nome do grupo (ex: Chat, Solar, Docs, Índia...):') || '';
+
+        const id = 'app_' + Date.now() + '_' + Math.floor(Math.random()*9999);
+        apps.push({ id, name, url, group });
+        log('Novo app criado: ' + name + (group ? ' (grupo: '+group+')' : ''));
+        saveApps();
+      });
+
+      // Docs
+      document.getElementById('btnDocs').addEventListener('click', ()=>{
+        log('Docs / Apps acionado.');
+        alert('Aqui você pode linkar seu stack de docs (Hub1, LivrLiv, etc). No monólito, este botão vai abrir o stack-docs.');
+      });
+
+      renderApps();
+
+      /* Console */
+
+      const consolePanel  = document.getElementById('consolePanel');
+      const consoleToggle = document.getElementById('consoleToggle');
+      const consoleClose  = document.getElementById('consoleClose');
+      const lsDump        = document.getElementById('consoleLsDump');
+      const logMirror     = document.getElementById('consoleLogMirror');
+      const cardOrigem    = document.getElementById('cardOrigem');
+      const toggleOrigemBtn = document.getElementById('toggleOrigemBtn');
+      const openGroupBtn    = document.getElementById('openGroupBtn');
+
+      function setConsoleOpen(open){
+        if(open){
+          consolePanel.classList.add('open');
+          consolePanel.setAttribute('aria-hidden','false');
+        }else{
+          consolePanel.classList.remove('open');
+          consolePanel.setAttribute('aria-hidden','true');
+        }
+      }
+
+      consoleToggle.addEventListener('click', ()=>{
+        const isOpen = consolePanel.classList.contains('open');
+        setConsoleOpen(!isOpen);
+      });
+      consoleClose.addEventListener('click', ()=> setConsoleOpen(false));
+
+      toggleOrigemBtn.addEventListener('click', ()=>{
+        const visible = cardOrigem.style.display !== 'none';
+        cardOrigem.style.display = visible ? 'none' : '';
+        log('Card de origem ' + (visible ? 'ocultado' : 'mostrado') + '.');
+      });
+
+      openGroupBtn.addEventListener('click', ()=>{
+        if(!apps.length){
+          alert('Você ainda não tem apps salvos.');
+          return;
+        }
+        const g = prompt('Nome do grupo que você quer abrir (ex: Chat, Solar, Índia):');
+        if(!g) return;
+        const groupName = g.trim();
+        const subset = apps.filter(a => (a.group || '').trim().toLowerCase() === groupName.toLowerCase());
+        if(!subset.length){
+          alert('Nenhum app encontrado com esse grupo.');
+          return;
+        }
+        subset.forEach(openAppCard);
+        log('Grupo aberto: ' + groupName + ' (' + subset.length + ' apps).');
+      });
+
+      function dumpLocalStorage(){
+        if(!lsDump) return;
+        try{
+          const lines = [];
+          for(let i=0;i<localStorage.length;i++){
+            const key = localStorage.key(i);
+            if(!key) continue;
+            const val = localStorage.getItem(key);
+            lines.push(key + ': ' + val);
+          }
+          lsDump.textContent = lines.join('\n') || '(sem chaves no localStorage)';
+        }catch(e){
+          lsDump.textContent = 'Erro ao ler localStorage.';
+        }
+      }
+
+      document.querySelectorAll('[data-ls-action]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const action = btn.getAttribute('data-ls-action');
+          if(action === 'dump'){
+            dumpLocalStorage();
+          }else if(action === 'clear-intent'){
+            if(confirm('Limpar intenção salva?')){
+              try{ localStorage.removeItem(INTENT_KEY); }catch(e){}
+              intentEl.value = '';
+              log('Intenção limpa.');
+              dumpLocalStorage();
+            }
+          }else if(action === 'clear-apps'){
+            if(!apps.length) return;
+            if(confirm('Limpar todos os apps salvos?')){
+              apps = [];
+              saveApps();
+              log('Apps limpos.');
+              dumpLocalStorage();
+            }
+          }
+        });
+      });
+
+      // Espelho do log
+      const logBox = document.getElementById('logBox');
+      if(logBox && logMirror){
+        const observer = new MutationObserver(()=>{
+          const last = logBox.firstElementChild;
+          if(!last) return;
+          const clone = last.cloneNode(true);
+          logMirror.prepend(clone);
+          while(logMirror.childElementCount > 8){
+            logMirror.removeChild(logMirror.lastElementChild);
+          }
+        });
+        observer.observe(logBox,{childList:true});
+      }
+    })();
+  </script>
+</body>
+</html>
