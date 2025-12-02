@@ -1,8 +1,8 @@
 {
   "name": "VwR · Dual.Infodose",
   "short_name": "oiDual-VwR",
-  "start_url": "/index.html",
-  "scope": "/",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#050816",
