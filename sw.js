@@ -1,11 +1,11 @@
 // sw.js · Service Worker basicão
 
-const CACHE_NAME = 'oidual-VWR-v2';
+const CACHE_NAME = 'oidual-VWR-v3';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.webmanifest',
-  '/icons/icon-192.png'
+  './',
+  './index.html',
+  './manifest.webmanifest',
+  './icons/icon-192.png'
 ];
 
 // Instala e pré-cacheia os básicos
